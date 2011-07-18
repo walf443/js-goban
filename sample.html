@@ -21,91 +21,93 @@
 
 					self.backgroundColor = options.backgroundColor ? options.backgroundColor : 'rgb(172, 130, 70)';
 
+					self.board = options.board;
+
 					self.dom = options.document.getElementById(options.id);
 					self.canvas = self.dom.getContext('2d');
 
-					self.render = function(board) {
-						self.writeBoard(board);
+					self.render = function() {
+						self.writeBoard();
 					};
 
-					self.writeBoard = function(board) {
-						self.writeBackground(board);
+					self.writeBoard = function() {
+						self.writeBackground();
 						self.canvas.fillStyle = 'rgb(0, 0, 0)';
 						self.canvas.strokeStyle = 'rgb(0, 0, 0)';
 
-						var unit_height = self.dom.height / board.size;
-						var unit_width = self.dom.width / board.size;
+						var unit_height = self.dom.height / self.board.size;
+						var unit_width = self.dom.width / self.board.size;
 
 						// vertical line
-						for (var i = 0; i < board.size; i++ ) {
+						for (var i = 0; i < self.board.size; i++ ) {
 							self.canvas.beginPath();
-							var start_coordinate = self.getCoordinate(board, i, 0);
+							var start_coordinate = self.getCoordinate(i, 0);
 							self.canvas.moveTo(start_coordinate[0], start_coordinate[1]);
-							var finish_coordinate = self.getCoordinate(board, i, board.size - 1);
+							var finish_coordinate = self.getCoordinate(i, self.board.size - 1);
 							self.canvas.lineTo(finish_coordinate[0], finish_coordinate[1]);
 							self.canvas.closePath();
 							self.canvas.stroke();
 						}
 
 						// horizontal line
-						for (var j = 0; j < board.size; j++ ) {
+						for (var j = 0; j < self.board.size; j++ ) {
 							self.canvas.beginPath();
-							var start_coordinate = self.getCoordinate(board, 0, j);
+							var start_coordinate = self.getCoordinate(0, j);
 							self.canvas.moveTo(start_coordinate[0], start_coordinate[1]);
-							var finish_coordinate = self.getCoordinate(board, board.size - 1, j);
+							var finish_coordinate = self.getCoordinate(self.board.size - 1, j);
 							self.canvas.lineTo(finish_coordinate[0], finish_coordinate[1]);
 							self.canvas.closePath();
 							self.canvas.stroke();
 						}
 
 						var radius = 2;
-						switch (board.size) {
+						switch (self.board.size) {
 							case 9:
-								self.point(board, 2, 2, radius);
-								self.point(board, 2, 5-1, radius);
-								self.point(board, 2, 9-1-2, radius);
-								self.point(board, 5-1, 9-1-2, radius);
-								self.point(board, 9-1-2, 9-1-2, radius);
-								self.point(board, 9-1-2, 5-1, radius);
-								self.point(board, 9-1-2, 2, radius);
-								self.point(board, 5-1, 2,radius);
+								self.point(2, 2, radius);
+								self.point(2, 5-1, radius);
+								self.point(2, 9-1-2, radius);
+								self.point(5-1, 9-1-2, radius);
+								self.point(9-1-2, 9-1-2, radius);
+								self.point(9-1-2, 5-1, radius);
+								self.point(9-1-2, 2, radius);
+								self.point(5-1, 2,radius);
 
-								self.point(board, 5-1, 5-1,radius);
+								self.point(5-1, 5-1,radius);
 								break;
 							case 13:
 								// TODO
 								break;
 							case 19:
-								self.point(board, 3, 3, radius);
-								self.point(board, 3, 10-1, radius);
-								self.point(board, 3, 19-1-3, radius);
-								self.point(board, 10-1, 19-1-3, radius);
-								self.point(board, 19-1-3, 19-1-3, radius);
-								self.point(board, 19-1-3, 10-1, radius);
-								self.point(board, 19-1-3, 3, radius);
-								self.point(board, 10-1, 3, radius);
-								self.point(board, 10-1, 10-1, radius);
+								self.point(3, 3, radius);
+								self.point(3, 10-1, radius);
+								self.point(3, 19-1-3, radius);
+								self.point(10-1, 19-1-3, radius);
+								self.point(19-1-3, 19-1-3, radius);
+								self.point(19-1-3, 10-1, radius);
+								self.point(19-1-3, 3, radius);
+								self.point(10-1, 3, radius);
+								self.point(10-1, 10-1, radius);
 								break;
 							default:
 								break;
 						}
 					};
 
-					self.point = function(board, x, y, r) {
-						var coordinates = self.getCoordinate(board, x, y);
+					self.point = function(x, y, r) {
+						var coordinates = self.getCoordinate(x, y);
 						self.canvas.beginPath();
 						self.canvas.arc(coordinates[0], coordinates[1], r, 0, Math.PI * 2, false);
 						self.canvas.stroke();
 					};
 
 					// return real coordinates from virtual coodinate.
-					self.getCoordinate = function(board, x, y) {
-						var unit_height = self.dom.height / board.size;
-						var unit_width = self.dom.width / board.size;
+					self.getCoordinate = function(x, y) {
+						var unit_height = self.dom.height / self.board.size;
+						var unit_width = self.dom.width / self.board.size;
 						return [unit_width / 2 + unit_width * x, unit_height / 2 + unit_height * y];
 					}
 
-					self.writeBackground = function(board) {
+					self.writeBackground = function() {
 						self.canvas.fillStyle = self.backgroundColor;
 						self.canvas.fillRect(0, 0, self.dom.width, self.dom.height);
 					}
@@ -123,12 +125,13 @@
 		<script>
 			var canvas = document.getElementById('goban');
 			var board = new Goban.Board({
-				size: 9,
+				size: 19,
 			});
 
 			var view = Goban.CanvasView({
 				'document': document,
-				id: 'goban',
+				'id': 'goban',
+				'board': board,
 			});
 			view.render(board);
 		</script>
