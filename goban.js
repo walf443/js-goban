@@ -57,7 +57,7 @@ Goban = (function() {
         self.canvas = self.dom.getContext('2d');
 
         self.render = function() {
-            self.writeBoard();
+            self.drawBoard();
             for (var i=0; i<self.board.size; i++) {
                 for (var j=0; j<self.board.size; j++) {
                     self.drawStone(i, j);
@@ -86,8 +86,8 @@ Goban = (function() {
 
         }
 
-        self.writeBoard = function() {
-            self.writeBackground();
+        self.drawBoard = function() {
+            self.drawBackground();
             self.canvas.fillStyle = 'rgb(0, 0, 0)';
             self.canvas.strokeStyle = 'rgb(0, 0, 0)';
 
@@ -163,7 +163,7 @@ Goban = (function() {
             return [unit_width / 2 + unit_width * x, unit_height / 2 + unit_height * y];
         }
 
-        self.writeBackground = function() {
+        self.drawBackground = function() {
             self.canvas.fillStyle = self.backgroundColor;
             self.canvas.fillRect(0, 0, self.dom.width, self.dom.height);
         }
