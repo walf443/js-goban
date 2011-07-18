@@ -61,7 +61,16 @@
 						var radius = 2;
 						switch (board.size) {
 							case 9:
-								// TODO
+								self.point(board, 2, 2, radius);
+								self.point(board, 2, 5-1, radius);
+								self.point(board, 2, 9-1-2, radius);
+								self.point(board, 5-1, 9-1-2, radius);
+								self.point(board, 9-1-2, 9-1-2, radius);
+								self.point(board, 9-1-2, 5-1, radius);
+								self.point(board, 9-1-2, 2, radius);
+								self.point(board, 5-1, 2,radius);
+
+								self.point(board, 5-1, 5-1,radius);
 								break;
 							case 13:
 								// TODO
@@ -114,7 +123,7 @@
 		<script>
 			var canvas = document.getElementById('goban');
 			var board = new Goban.Board({
-				size: 19,
+				size: 9,
 			});
 
 			var view = Goban.CanvasView({
