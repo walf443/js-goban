@@ -3,7 +3,7 @@
 	<head>
 		<title>Goban</title>
 		<meta charset="utf-8" />
-		<script src="goban.js?3"></script>
+		<script src="goban.js?11"></script>
 	</head>
 	<body>
 		<p>碁盤アプリのデモです</p>
@@ -17,6 +17,12 @@
 					'id': 'goban',
 				},
 			});
+			board.move(3, 3);
+			board.move(2, 5);
+			board.move(6, 3);
+			board.move(1, 3);
+			board.move(2, 2);
+			board.move(2, 7);
 			board.render();
 		</script>
 	</body>

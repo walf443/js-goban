@@ -7,8 +7,35 @@ Goban = (function() {
 
         self.size = options.size;
 
+        self.data = [];
+
+        for (var i=0; i< self.size; i++ ) {
+            for (var j = 0; j < self.size; j++ ) {
+                self.data[i*self.size+j] = undefined;
+            }
+        }
+
+        self.turn = 0;
+
         self.viewClass = options.viewClass;
         self.viewOptions = options.viewOptions;
+
+        self.changeTurn = function() {
+            if ( self.turn == 0 ) {
+                self.turn = 1;
+            } else {
+                self.turn = 0;
+            }
+        };
+
+        self.move = function(x, y) {
+            if ( self.data[y*self.size+x] == undefined ) {
+                self.data[y*self.size+x] = self.turn; // TODO
+                self.changeTurn();
+            } else {
+                throw "Can't move to this position";
+            }
+        };
 
         self.render = function() {
             self.viewOptions.board = self;
@@ -31,7 +58,33 @@ Goban = (function() {
 
         self.render = function() {
             self.writeBoard();
+            for (var i=0; i<self.board.size; i++) {
+                for (var j=0; j<self.board.size; j++) {
+                    self.drawStone(i, j);
+                }
+            }
         };
+
+        self.drawStone = function(x, y) {
+            var value = self.board.data[y*self.board.size+x];
+            switch (value) {
+                case undefined:
+                    break;
+                case 0:
+                    self.canvas.fillStyle = 'rgb(0, 0, 0)';
+                    self.canvas.strokeStyle = 'rgb(0, 0, 0)';
+                    break;
+                case 1:
+                    self.canvas.fillStyle = 'rgb(255, 255, 255)';
+                    self.canvas.strokeStyle = 'rgb(0, 0, 0)';
+                    break;
+            }
+            if ( value != undefined ) {
+                var unit_radius = self.dom.width / self.board.size / 2 * 0.8;
+                self.point(x, y, unit_radius);
+            }
+
+        }
 
         self.writeBoard = function() {
             self.writeBackground();
@@ -100,7 +153,7 @@ Goban = (function() {
             var coordinates = self.getCoordinate(x, y);
             self.canvas.beginPath();
             self.canvas.arc(coordinates[0], coordinates[1], r, 0, Math.PI * 2, false);
-            self.canvas.stroke();
+            self.canvas.fill();
         };
 
         // return real coordinates from virtual coodinate.
