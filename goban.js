@@ -7,6 +7,15 @@ Goban = (function() {
 
         self.size = options.size;
 
+        self.viewClass = options.viewClass;
+        self.viewOptions = options.viewOptions;
+
+        self.render = function() {
+            self.viewOptions.board = self;
+            var view = new self.viewClass(self.viewOptions)
+            view.render();
+        }
+
         return self;
     };
 

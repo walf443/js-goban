@@ -3,7 +3,7 @@
 	<head>
 		<title>Goban</title>
 		<meta charset="utf-8" />
-		<script src="goban.js?1"></script>
+		<script src="goban.js?3"></script>
 	</head>
 	<body>
 		<p>碁盤アプリのデモです</p>
@@ -11,14 +11,13 @@
 		<script>
 			var board = new Goban.Board({
 				size: 19,
+				viewClass: Goban.CanvasView,
+				viewOptions: {
+					'document': document,
+					'id': 'goban',
+				},
 			});
-
-			var view = Goban.CanvasView({
-				'document': document,
-				'id': 'goban',
-				'board': board,
-			});
-			view.render(board);
+			board.render();
 		</script>
 	</body>
 </html>
