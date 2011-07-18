@@ -1,4 +1,6 @@
 Goban = (function() {
+    "use strict";
+
     var exports = {};
 
     exports.Board = function (options)
