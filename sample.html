@@ -39,22 +39,45 @@
 						// vertical line
 						for (var i = 0; i < board.size; i++ ) {
 							self.canvas.beginPath();
-							self.canvas.moveTo(unit_width / 2 + unit_width * i, unit_height / 2);
-							self.canvas.lineTo(unit_width / 2 + unit_width * i, self.dom.height - unit_height / 2);
+							var start_coordinate = self.getCoordinate(board, i, 0);
+							self.canvas.moveTo(start_coordinate[0], start_coordinate[1]);
+							var finish_coordinate = self.getCoordinate(board, i, board.size - 1);
+							self.canvas.lineTo(finish_coordinate[0], finish_coordinate[1]);
 							self.canvas.closePath();
 							self.canvas.stroke();
 						}
 
 						// horizontal line
-						for ( var j = 0; j < board.size; j++ ) {
+						for (var j = 0; j < board.size; j++ ) {
 							self.canvas.beginPath();
-							self.canvas.moveTo(unit_width / 2, unit_height / 2 + unit_height * j);
-							self.canvas.lineTo(self.dom.width - unit_width / 2, unit_height / 2 + unit_height * j);
+							var start_coordinate = self.getCoordinate(board, 0, j);
+							self.canvas.moveTo(start_coordinate[0], start_coordinate[1]);
+							var finish_coordinate = self.getCoordinate(board, board.size - 1, j);
+							self.canvas.lineTo(finish_coordinate[0], finish_coordinate[1]);
 							self.canvas.closePath();
 							self.canvas.stroke();
 						}
 
+						switch (board.size) {
+							case 9:
+								// TODO
+								break;
+							case 13:
+								// TODO
+								break;
+							case 19:
+								break;
+							default:
+								break;
+						}
 					};
+
+					// return real coordinates from virtual coodinate.
+					self.getCoordinate = function(board, x, y) {
+						var unit_height = self.dom.height / board.size;
+						var unit_width = self.dom.width / board.size;
+						return [unit_width / 2 + unit_width * x, unit_height / 2 + unit_height * y];
+					}
 
 					self.writeBackground = function(board) {
 						self.canvas.fillStyle = self.backgroundColor;
