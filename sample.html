@@ -3,12 +3,13 @@
 	<head>
 		<title>Goban</title>
 		<meta charset="utf-8" />
-		<script src="goban.js?14"></script>
+		<script src="goban.js?15"></script>
 	</head>
 	<body>
 		<p>碁盤アプリのデモです</p>
 		<canvas id="goban" width="300" height="300" />
 		<script>
+			"use strict";
 			var board = new Goban.Board({
 				size: 19,
 				viewClass: Goban.CanvasView,

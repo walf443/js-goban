@@ -1,4 +1,4 @@
-Goban = (function() {
+var Goban = (function() {
     "use strict";
 
     var exports = {};
