@@ -30,9 +30,9 @@ var Goban = (function() {
 
         this.changeTurn = function() {
             if ( this.turn == goban.BLACK ) {
-                this.turn = goban.BLACK;
-            } else {
                 this.turn = goban.WHITE;
+            } else {
+                this.turn = goban.BLACK;
             }
         };
 
