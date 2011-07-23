@@ -17,9 +17,17 @@ var Goban = (function() {
 
         this.data = [];
 
+        this.point = function(x, y, value) {
+            if ( value == undefined ) {
+                return this.data[y*this.size+x];
+            } else {
+                this.data[y*this.size+x] = value;
+            }
+        };
+
         for (var i=0; i< this.size; i++ ) {
             for (var j = 0; j < this.size; j++ ) {
-                this.data[i*this.size+j] = undefined;
+                this.point(i, j, undefined);
             }
         }
 
@@ -37,12 +45,16 @@ var Goban = (function() {
         };
 
         this.move = function(x, y) {
-            if ( this.data[y*this.size+x] == undefined ) {
-                this.data[y*this.size+x] = this.turn;
+            if ( this.point(x, y) == undefined ) {
+                this.point(x, y, this.turn);
+                this.evaluate(x, y);
                 this.changeTurn();
             } else {
                 throw "Can't move to this position";
             }
+        };
+
+        this.evaluate = function(x, y) {
         };
 
         this.render = function() {
