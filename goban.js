@@ -1,9 +1,9 @@
 var Goban = (function() {
     "use strict";
 
-    var exports = {};
+    module.exports = this;
 
-    exports.Board = function (options)
+    this.Board = function (options)
     {
         this.size = options.size;
 
@@ -46,7 +46,7 @@ var Goban = (function() {
         return this;
     };
 
-    exports.CanvasView = function(options) {
+    this.CanvasView = function(options) {
 
         this.backgroundColor = options.backgroundColor ? options.backgroundColor : 'rgb(172, 130, 70)';
 
@@ -170,5 +170,6 @@ var Goban = (function() {
         return this;
     };
 
-    return exports;
+    return this;
 })();
+
