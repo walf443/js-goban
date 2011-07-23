@@ -1,7 +1,11 @@
 var Goban = (function() {
     "use strict";
 
-    module.exports = this;
+    // for node test
+    try {
+        module.exports = this;
+    } catch (e) {
+    };
 
     this.BLACK = 0;
     this.WHITE = 1;
