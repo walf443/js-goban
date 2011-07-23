@@ -9,6 +9,7 @@ var Goban = (function() {
 
     this.BLACK = 0;
     this.WHITE = 1;
+    var goban = this;
 
     this.Board = function (options)
     {
@@ -22,16 +23,16 @@ var Goban = (function() {
             }
         }
 
-        this.turn = this.BLACK;
+        this.turn = goban.BLACK;
 
         this.viewClass = options.viewClass;
         this.viewOptions = options.viewOptions;
 
         this.changeTurn = function() {
-            if ( this.turn == this.BLACK ) {
-                this.turn = this.BLACK;
+            if ( this.turn == goban.BLACK ) {
+                this.turn = goban.BLACK;
             } else {
-                this.turn = this.WHITE;
+                this.turn = goban.WHITE;
             }
         };
 
@@ -76,11 +77,11 @@ var Goban = (function() {
             switch (value) {
                 case undefined:
                     break;
-                case 0:
+                case goban.BLACK:
                     this.canvas.fillStyle = 'rgb(0, 0, 0)';
                     this.canvas.strokeStyle = 'rgb(0, 0, 0)';
                     break;
-                case 1:
+                case goto.WHITE:
                     this.canvas.fillStyle = 'rgb(255, 255, 255)';
                     this.canvas.strokeStyle = 'rgb(0, 0, 0)';
                     break;
