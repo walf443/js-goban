@@ -55,6 +55,48 @@ var Goban = (function() {
         };
 
         this.evaluate = function(x, y) {
+            if ( this.isDead(x, y) ) {
+            } else {
+                // no op.
+            }
+        };
+
+        this.isDead = function(x, y) {
+            var up = this.point(x, y-1);
+            var down = this.point(x, y+1);
+            var left = this.point(x-1, y);
+            var right = this.point(x+1, y);
+
+            if (
+                ( up == undefined ) ||
+                ( down == undefined ) ||
+                ( left == undefined ) ||
+                ( right == undefined )
+            ) {
+                return false;
+            }
+
+            // up
+            if ( this.isDead(this.point(x, y-1)) ) {
+                return false;
+            };
+
+            // down
+            if ( this.isDead(this.point(x, y+1)) ) {
+                return false;
+            };
+
+            // left
+            if ( this.isDead(this.point(x-1, y)) ) {
+                return false;
+            };
+
+            // right
+            if ( this.isDead(this.point(x+1, y)) ) {
+                return false;
+            };
+
+            return true;
         };
 
         this.render = function() {
