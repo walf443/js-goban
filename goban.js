@@ -5,172 +5,169 @@ var Goban = (function() {
 
     exports.Board = function (options)
     {
-        var self = {};
+        this.size = options.size;
 
-        self.size = options.size;
+        this.data = [];
 
-        self.data = [];
-
-        for (var i=0; i< self.size; i++ ) {
-            for (var j = 0; j < self.size; j++ ) {
-                self.data[i*self.size+j] = undefined;
+        for (var i=0; i< this.size; i++ ) {
+            for (var j = 0; j < this.size; j++ ) {
+                this.data[i*this.size+j] = undefined;
             }
         }
 
-        self.turn = 0;
+        this.turn = 0;
 
-        self.viewClass = options.viewClass;
-        self.viewOptions = options.viewOptions;
+        this.viewClass = options.viewClass;
+        this.viewOptions = options.viewOptions;
 
-        self.changeTurn = function() {
-            if ( self.turn == 0 ) {
-                self.turn = 1;
+        this.changeTurn = function() {
+            if ( this.turn == 0 ) {
+                this.turn = 1;
             } else {
-                self.turn = 0;
+                this.turn = 0;
             }
         };
 
-        self.move = function(x, y) {
-            if ( self.data[y*self.size+x] == undefined ) {
-                self.data[y*self.size+x] = self.turn; // TODO
-                self.changeTurn();
+        this.move = function(x, y) {
+            if ( this.data[y*this.size+x] == undefined ) {
+                this.data[y*this.size+x] = this.turn; // TODO
+                this.changeTurn();
             } else {
                 throw "Can't move to this position";
             }
         };
 
-        self.render = function() {
-            self.viewOptions.board = self;
-            var view = new self.viewClass(self.viewOptions)
+        this.render = function() {
+            this.viewOptions.board = this;
+            var view = new this.viewClass(this.viewOptions)
             view.render();
         }
 
-        return self;
+        return this;
     };
 
     exports.CanvasView = function(options) {
-        var self = {};
 
-        self.backgroundColor = options.backgroundColor ? options.backgroundColor : 'rgb(172, 130, 70)';
+        this.backgroundColor = options.backgroundColor ? options.backgroundColor : 'rgb(172, 130, 70)';
 
-        self.board = options.board;
+        this.board = options.board;
 
-        self.dom = options.document.getElementById(options.id);
-        self.canvas = self.dom.getContext('2d');
+        this.dom = options.document.getElementById(options.id);
+        this.canvas = this.dom.getContext('2d');
 
-        self.render = function() {
-            self.drawBoard();
-            for (var i=0; i<self.board.size; i++) {
-                for (var j=0; j<self.board.size; j++) {
-                    self.drawStone(i, j);
+        this.render = function() {
+            this.drawBoard();
+            for (var i=0; i<this.board.size; i++) {
+                for (var j=0; j<this.board.size; j++) {
+                    this.drawStone(i, j);
                 }
             }
         };
 
-        self.drawStone = function(x, y) {
-            var value = self.board.data[y*self.board.size+x];
+        this.drawStone = function(x, y) {
+            var value = this.board.data[y*this.board.size+x];
             switch (value) {
                 case undefined:
                     break;
                 case 0:
-                    self.canvas.fillStyle = 'rgb(0, 0, 0)';
-                    self.canvas.strokeStyle = 'rgb(0, 0, 0)';
+                    this.canvas.fillStyle = 'rgb(0, 0, 0)';
+                    this.canvas.strokeStyle = 'rgb(0, 0, 0)';
                     break;
                 case 1:
-                    self.canvas.fillStyle = 'rgb(255, 255, 255)';
-                    self.canvas.strokeStyle = 'rgb(0, 0, 0)';
+                    this.canvas.fillStyle = 'rgb(255, 255, 255)';
+                    this.canvas.strokeStyle = 'rgb(0, 0, 0)';
                     break;
             }
             if ( value != undefined ) {
-                var unit_radius = self.dom.width / self.board.size / 2 * 0.8;
-                self.point(x, y, unit_radius);
+                var unit_radius = this.dom.width / this.board.size / 2 * 0.8;
+                this.point(x, y, unit_radius);
             }
 
         }
 
-        self.drawBoard = function() {
-            self.drawBackground();
-            self.canvas.fillStyle = 'rgb(0, 0, 0)';
-            self.canvas.strokeStyle = 'rgb(0, 0, 0)';
+        this.drawBoard = function() {
+            this.drawBackground();
+            this.canvas.fillStyle = 'rgb(0, 0, 0)';
+            this.canvas.strokeStyle = 'rgb(0, 0, 0)';
 
-            var unit_height = self.dom.height / self.board.size;
-            var unit_width = self.dom.width / self.board.size;
+            var unit_height = this.dom.height / this.board.size;
+            var unit_width = this.dom.width / this.board.size;
 
             // vertical line
-            for (var i = 0; i < self.board.size; i++ ) {
-                self.canvas.beginPath();
-                var start_coordinate = self.getCoordinate(i, 0);
-                self.canvas.moveTo(start_coordinate[0], start_coordinate[1]);
-                var finish_coordinate = self.getCoordinate(i, self.board.size - 1);
-                self.canvas.lineTo(finish_coordinate[0], finish_coordinate[1]);
-                self.canvas.closePath();
-                self.canvas.stroke();
+            for (var i = 0; i < this.board.size; i++ ) {
+                this.canvas.beginPath();
+                var start_coordinate = this.getCoordinate(i, 0);
+                this.canvas.moveTo(start_coordinate[0], start_coordinate[1]);
+                var finish_coordinate = this.getCoordinate(i, this.board.size - 1);
+                this.canvas.lineTo(finish_coordinate[0], finish_coordinate[1]);
+                this.canvas.closePath();
+                this.canvas.stroke();
             }
 
             // horizontal line
-            for (var j = 0; j < self.board.size; j++ ) {
-                self.canvas.beginPath();
-                var start_coordinate = self.getCoordinate(0, j);
-                self.canvas.moveTo(start_coordinate[0], start_coordinate[1]);
-                var finish_coordinate = self.getCoordinate(self.board.size - 1, j);
-                self.canvas.lineTo(finish_coordinate[0], finish_coordinate[1]);
-                self.canvas.closePath();
-                self.canvas.stroke();
+            for (var j = 0; j < this.board.size; j++ ) {
+                this.canvas.beginPath();
+                var start_coordinate = this.getCoordinate(0, j);
+                this.canvas.moveTo(start_coordinate[0], start_coordinate[1]);
+                var finish_coordinate = this.getCoordinate(this.board.size - 1, j);
+                this.canvas.lineTo(finish_coordinate[0], finish_coordinate[1]);
+                this.canvas.closePath();
+                this.canvas.stroke();
             }
 
             var radius = 2;
-            switch (self.board.size) {
+            switch (this.board.size) {
                 case 9:
-                    self.point(2, 2, radius);
-                    self.point(2, 5-1, radius);
-                    self.point(2, 9-1-2, radius);
-                    self.point(5-1, 9-1-2, radius);
-                    self.point(9-1-2, 9-1-2, radius);
-                    self.point(9-1-2, 5-1, radius);
-                    self.point(9-1-2, 2, radius);
-                    self.point(5-1, 2,radius);
+                    this.point(2, 2, radius);
+                    this.point(2, 5-1, radius);
+                    this.point(2, 9-1-2, radius);
+                    this.point(5-1, 9-1-2, radius);
+                    this.point(9-1-2, 9-1-2, radius);
+                    this.point(9-1-2, 5-1, radius);
+                    this.point(9-1-2, 2, radius);
+                    this.point(5-1, 2,radius);
 
-                    self.point(5-1, 5-1,radius);
+                    this.point(5-1, 5-1,radius);
                     break;
                 case 13:
                     // TODO
                     break;
                 case 19:
-                    self.point(3, 3, radius);
-                    self.point(3, 10-1, radius);
-                    self.point(3, 19-1-3, radius);
-                    self.point(10-1, 19-1-3, radius);
-                    self.point(19-1-3, 19-1-3, radius);
-                    self.point(19-1-3, 10-1, radius);
-                    self.point(19-1-3, 3, radius);
-                    self.point(10-1, 3, radius);
-                    self.point(10-1, 10-1, radius);
+                    this.point(3, 3, radius);
+                    this.point(3, 10-1, radius);
+                    this.point(3, 19-1-3, radius);
+                    this.point(10-1, 19-1-3, radius);
+                    this.point(19-1-3, 19-1-3, radius);
+                    this.point(19-1-3, 10-1, radius);
+                    this.point(19-1-3, 3, radius);
+                    this.point(10-1, 3, radius);
+                    this.point(10-1, 10-1, radius);
                     break;
                 default:
                     break;
             }
         };
 
-        self.point = function(x, y, r) {
-            var coordinates = self.getCoordinate(x, y);
-            self.canvas.beginPath();
-            self.canvas.arc(coordinates[0], coordinates[1], r, 0, Math.PI * 2, false);
-            self.canvas.fill();
+        this.point = function(x, y, r) {
+            var coordinates = this.getCoordinate(x, y);
+            this.canvas.beginPath();
+            this.canvas.arc(coordinates[0], coordinates[1], r, 0, Math.PI * 2, false);
+            this.canvas.fill();
         };
 
         // return real coordinates from virtual coodinate.
-        self.getCoordinate = function(x, y) {
-            var unit_height = self.dom.height / self.board.size;
-            var unit_width = self.dom.width / self.board.size;
+        this.getCoordinate = function(x, y) {
+            var unit_height = this.dom.height / this.board.size;
+            var unit_width = this.dom.width / this.board.size;
             return [unit_width / 2 + unit_width * x, unit_height / 2 + unit_height * y];
         }
 
-        self.drawBackground = function() {
-            self.canvas.fillStyle = self.backgroundColor;
-            self.canvas.fillRect(0, 0, self.dom.width, self.dom.height);
+        this.drawBackground = function() {
+            this.canvas.fillStyle = this.backgroundColor;
+            this.canvas.fillRect(0, 0, this.dom.width, this.dom.height);
         }
 
-        return self;
+        return this;
     };
 
     return exports;
