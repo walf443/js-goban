@@ -81,7 +81,7 @@ var Goban = (function() {
                     this.canvas.fillStyle = 'rgb(0, 0, 0)';
                     this.canvas.strokeStyle = 'rgb(0, 0, 0)';
                     break;
-                case goto.WHITE:
+                case goban.WHITE:
                     this.canvas.fillStyle = 'rgb(255, 255, 255)';
                     this.canvas.strokeStyle = 'rgb(0, 0, 0)';
                     break;
