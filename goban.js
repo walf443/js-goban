@@ -3,6 +3,9 @@ var Goban = (function() {
 
     module.exports = this;
 
+    this.BLACK = 0;
+    this.WHITE = 1;
+
     this.Board = function (options)
     {
         this.size = options.size;
@@ -15,16 +18,16 @@ var Goban = (function() {
             }
         }
 
-        this.turn = 0;
+        this.turn = this.BLACK;
 
         this.viewClass = options.viewClass;
         this.viewOptions = options.viewOptions;
 
         this.changeTurn = function() {
-            if ( this.turn == 0 ) {
-                this.turn = 1;
+            if ( this.turn == this.BLACK ) {
+                this.turn = this.BLACK;
             } else {
-                this.turn = 0;
+                this.turn = this.WHITE;
             }
         };
 
