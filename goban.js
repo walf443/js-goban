@@ -38,7 +38,7 @@ var Goban = (function() {
 
         this.move = function(x, y) {
             if ( this.data[y*this.size+x] == undefined ) {
-                this.data[y*this.size+x] = this.turn; // TODO
+                this.data[y*this.size+x] = this.turn;
                 this.changeTurn();
             } else {
                 throw "Can't move to this position";
