@@ -23,6 +23,7 @@ var Goban = require('goban.js');
     assert.equal(board.turn, Goban.WHITE, 'change turn ok');
     board.move(1, 0);
     board.move(5, 5); // てきとうなところへ打つ
+    asser.equal(board.isDead(1, 2), true, 'アタリであること');
     board.move(1, 2);
     assert.equal(board.turn, Goban.BLACK);
     // TODO: assert.equal(board.data[0], undefined);

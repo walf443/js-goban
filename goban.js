@@ -77,22 +77,22 @@ var Goban = (function() {
             }
 
             // up
-            if ( this.isDead(this.point(x, y-1)) ) {
+            if ( ! this.isDead(this.point(x, y-1)) ) {
                 return false;
             };
 
             // down
-            if ( this.isDead(this.point(x, y+1)) ) {
+            if ( ! this.isDead(this.point(x, y+1)) ) {
                 return false;
             };
 
             // left
-            if ( this.isDead(this.point(x-1, y)) ) {
+            if ( ! this.isDead(this.point(x-1, y)) ) {
                 return false;
             };
 
             // right
-            if ( this.isDead(this.point(x+1, y)) ) {
+            if ( ! this.isDead(this.point(x+1, y)) ) {
                 return false;
             };
 
