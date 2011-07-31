@@ -52,47 +52,56 @@ var Goban = (function() {
         };
 
         this.evaluate = function(x, y) {
-            if (this.isDead(x, y)) {
+            if (this.isDead(x, y, this.turn)) {
             } else {
                 // no op.
             }
         };
 
-        this.isDead = function(x, y) {
+        this.isDead = function(x, y, color) {
+            console.log("############ called isDaed x: " + x + ", y: " + y);
             var up = this.point(x, y - 1);
             var down = this.point(x, y + 1);
             var left = this.point(x - 1, y);
             var right = this.point(x + 1, y);
 
             if (
-                (up == undefined) ||
-                (down == undefined) ||
-                (left == undefined) ||
-                (right == undefined)
+                (y - 1 >= 0 && up != color ) ||
+                (y + 1 < this.size && down != color) ||
+                (x - 1 >= 0 && left != color) ||
+                (x + 1 < this.size && right != color)
             ) {
+                console.log("############ finish called isDaed x: " + x + ", y: " + y);
                 return false;
             }
 
             // up
-            if (! this.isDead(this.point(x, y - 1))) {
-                return false;
+            if ( y - 1 >= 0 ) {
+                if ( ! this.isDead(x, y - 1, color) ) {
+                    console.log("############ finish called isDaed x: " + x + ", y: " + y);
+                    return false;
+                }
             }
 
             // down
-            if (! this.isDead(this.point(x, y + 1))) {
+            if (y + 1 < this.size && ! this.isDead(x, y + 1, color)) {
+                console.log("############ finish called isDaed x: " + x + ", y: " + y);
                 return false;
             }
 
             // left
-            if (! this.isDead(this.point(x - 1, y))) {
+            if (x - 1 >= 0 && ! this.isDead(x - 1, y, color)) {
+                console.log("############ finish called isDaed x: " + x + ", y: " + y);
                 return false;
             }
 
             // right
-            if (! this.isDead(this.point(x + 1, y))) {
+            if (x + 1 < this.size && ! this.isDead(x + 1, y, color)) {
+                console.log("############ finish called isDaed x: " + x + ", y: " + y);
                 return false;
             }
 
+            console.log("############ finish called isDaed x: " + x + ", y: " + y);
             return true;
         };
 
