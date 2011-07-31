@@ -16,6 +16,9 @@ var Goban = (function() {
         this.size = options.size;
 
         this.data = [];
+        for (var i = 0; i < this.size * this.size; i++ ) {
+            this.data[i] = undefined;
+        }
 
         this.point = function(x, y, value) {
             if (value == undefined) {
