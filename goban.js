@@ -25,12 +25,6 @@ var Goban = (function() {
             }
         };
 
-        for (var i = 0; i < this.size; i++) {
-            for (var j = 0; j < this.size; j++) {
-                this.point(i, j, undefined);
-            }
-        }
-
         this.turn = goban.BLACK;
 
         this.viewClass = options.viewClass;
