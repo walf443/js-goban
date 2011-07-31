@@ -35,10 +35,18 @@ QUnit.test("隅のアタリ判定", function() {
 
 QUnit.module("point", {});
 
-QUnit.test("pointのテスト", function() {
+QUnit.test("真ん中にあるやつ", function() {
     var board = new Goban.Board({ 'size': 9 });
     board.point(3, 3, Goban.BLACK);
     QUnit.equal(board.point(3, 3), Goban.BLACK, "ちゃんとsetされていること");
+    QUnit.equal(board.data[3*9+3], Goban.BLACK, "ちゃんとsetされていること");
+});
+
+QUnit.test("上辺", function() {
+    var board = new Goban.Board({ 'size': 9 });
+    board.point(0, 3, Goban.BLACK);
+    QUnit.equal(board.point(0, 3), Goban.BLACK, "ちゃんとsetされていること");
+    QUnit.equal(board.data[3*9+0], Goban.BLACK, "ちゃんとsetされていること");
 });
 
 QUnit.module("isDead", {});
