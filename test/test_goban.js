@@ -158,24 +158,18 @@ QUnit.test("四方を囲まれて2子とられた場合", function() {
     board.point(3, 3, Goban.BLACK);
     QUnit.equal(board.isDead(3, 3, Goban.BLACK), false, "まだ黒石は死んでないよ");
     board.point(3, 4, Goban.BLACK);
-    board.render();
     QUnit.equal(board.isDead(3, 3, Goban.BLACK), false, "まだ黒石は死んでないよ");
     board.point(2, 3, Goban.WHITE);
-    board.render();
     QUnit.equal(board.isDead(3, 3, Goban.BLACK), false, "まだ黒石は死んでないよ");
     board.point(2, 4, Goban.WHITE);
-    board.render();
     QUnit.equal(board.isDead(3, 3, Goban.BLACK), false, "まだ黒石は死んでないよ");
     board.point(3, 2, Goban.WHITE);
-    board.render();
     QUnit.equal(board.isDead(3, 3, Goban.BLACK), false, "まだ黒石は死んでないよ");
     board.point(3, 5, Goban.WHITE);
-    board.render();
     QUnit.equal(board.isDead(3, 3, Goban.BLACK), false, "まだ黒石は死んでないよ");
     board.point(4, 3, Goban.WHITE);
     QUnit.equal(board.isDead(3, 3, Goban.BLACK), false, "まだ黒石は死んでないよ");
     board.point(4, 4, Goban.WHITE);
-    board.render();
     QUnit.equal(board.isDead(3, 3, Goban.BLACK), true, "黒石は取られること");
 });
 
