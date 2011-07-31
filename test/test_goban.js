@@ -33,6 +33,14 @@ QUnit.test("隅のアタリ判定", function() {
     QUnit.equal(board.point(0, 0), undefined, "黒石は取られること");
 });
 
+QUnit.module("point", {});
+
+QUnit.test("pointのテスト", function() {
+    var board = new Goban.Board({ 'size': 9 });
+    board.point(3, 3, Goban.BLACK);
+    QUnit.equal(board.point(3, 3), Goban.BLACK, "ちゃんとsetされていること");
+});
+
 QUnit.module("isDead", {});
 
 QUnit.test("四方を囲まれて一子とられた場合", function() {
