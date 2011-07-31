@@ -60,19 +60,30 @@ var Goban = (function() {
 
         this.isDead = function(x, y, color) {
             console.log("############ called isDaed x: " + x + ", y: " + y);
+            var val = this.point(x, y);
+            if ( val != color ) {
+                return true;
+            }
             var up = this.point(x, y - 1);
-            var down = this.point(x, y + 1);
-            var left = this.point(x - 1, y);
-            var right = this.point(x + 1, y);
+            if ( y - 1 >= 0 && up === undefined ) {
+                console.log("############ up is blank by isDaed x: " + x + ", y: " + y);
+                return true;
+            }
 
-            if (
-                (y - 1 >= 0 && up != color ) ||
-                (y + 1 < this.size && down != color) ||
-                (x - 1 >= 0 && left != color) ||
-                (x + 1 < this.size && right != color)
-            ) {
-                console.log("############ finish called isDaed x: " + x + ", y: " + y);
-                return false;
+            var down = this.point(x, y + 1);
+            if ( y + 1 < this.size && down == undefined ) {
+                console.log("############ down is blank by isDaed x: " + x + ", y: " + y);
+                return true;
+            }
+            var left = this.point(x - 1, y);
+            if ( x - 1 >= 0 && left == undefined ) {
+                console.log("############ left is blank by isDaed x: " + x + ", y: " + y);
+                return true;
+            }
+            var right = this.point(x + 1, y);
+            if ( x + 1 < this.size && right == undefined ) {
+                console.log("############ right is blank by isDaed x: " + x + ", y: " + y);
+                return true;
             }
 
             // up
