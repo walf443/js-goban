@@ -28,10 +28,9 @@ QUnit.test("隅のアタリ判定", function() {
     QUnit.equal(board.turn, Goban.WHITE, 'change turn ok');
     board.move(1, 0);
     board.move(5, 5); // てきとうなところへ打つ
-    QUnit.equal(board.isDead(1, 2), true, 'アタリであること');
     board.move(1, 2);
     QUnit.equal(board.turn, Goban.BLACK);
-    // TODO: assert.equal(board.data[0], undefined);
+    QUnit.equal(board.point(0, 0), undefined, "黒石は取られること");
 });
 
 QUnit.start();
