@@ -34,7 +34,7 @@ QUnit.test("隅のアタリ判定", function() {
 });
 
 QUnit.module("isDead", {});
-QUnit.test("隅", function() {
+QUnit.test("左上隅", function() {
     var board = new Goban.Board({ 'size': 9 });
     board.point(0, 0, Goban.BLACK);
     board.point(1, 0, Goban.WHITE);
@@ -42,7 +42,7 @@ QUnit.test("隅", function() {
     QUnit.equal(board.isDead(0, 0, Goban.BLACK), true, "黒石は取られること");
 });
 
-QUnit.test("辺", function() {
+QUnit.test("上辺", function() {
     var board = new Goban.Board({ 'size': 9 });
     board.point(0, 3, Goban.BLACK);
     board.point(0, 2, Goban.WHITE);
