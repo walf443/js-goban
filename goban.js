@@ -131,7 +131,7 @@ var Goban = (function() {
 
             // down
             if (y + 1 < this.size && down == color && this.isAlive(x, y + 1, color)) {
-                debugIsAlive("############ finish called isAlive x: " + x + ", y: " + y);
+                this.debugIsAlive("############ finish called isAlive x: " + x + ", y: " + y);
                 return true;
             }
 
