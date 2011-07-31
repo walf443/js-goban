@@ -1,32 +1,32 @@
 var Goban = (function() {
-    "use strict";
+    'use strict';
 
     // for node test
     try {
         module.exports = this;
     } catch (e) {
-    };
+    }
 
     this.BLACK = 0;
     this.WHITE = 1;
     var goban = this;
 
-    this.Board = function (options)
+    this.Board = function(options)
     {
         this.size = options.size;
 
         this.data = [];
 
         this.point = function(x, y, value) {
-            if ( value == undefined ) {
-                return this.data[y*this.size+x];
+            if (value == undefined) {
+                return this.data[y * this.size + x];
             } else {
-                this.data[y*this.size+x] = value;
+                this.data[y * this.size + x] = value;
             }
         };
 
-        for (var i=0; i< this.size; i++ ) {
-            for (var j = 0; j < this.size; j++ ) {
+        for (var i = 0; i < this.size; i++) {
+            for (var j = 0; j < this.size; j++) {
                 this.point(i, j, undefined);
             }
         }
@@ -37,7 +37,7 @@ var Goban = (function() {
         this.viewOptions = options.viewOptions;
 
         this.changeTurn = function() {
-            if ( this.turn == goban.BLACK ) {
+            if (this.turn == goban.BLACK) {
                 this.turn = goban.WHITE;
             } else {
                 this.turn = goban.BLACK;
@@ -45,7 +45,7 @@ var Goban = (function() {
         };
 
         this.move = function(x, y) {
-            if ( this.point(x, y) == undefined ) {
+            if (this.point(x, y) == undefined) {
                 this.point(x, y, this.turn);
                 this.evaluate(x, y);
                 this.changeTurn();
@@ -55,53 +55,53 @@ var Goban = (function() {
         };
 
         this.evaluate = function(x, y) {
-            if ( this.isDead(x, y) ) {
+            if (this.isDead(x, y)) {
             } else {
                 // no op.
             }
         };
 
         this.isDead = function(x, y) {
-            var up = this.point(x, y-1);
-            var down = this.point(x, y+1);
-            var left = this.point(x-1, y);
-            var right = this.point(x+1, y);
+            var up = this.point(x, y - 1);
+            var down = this.point(x, y + 1);
+            var left = this.point(x - 1, y);
+            var right = this.point(x + 1, y);
 
             if (
-                ( up == undefined ) ||
-                ( down == undefined ) ||
-                ( left == undefined ) ||
-                ( right == undefined )
+                (up == undefined) ||
+                (down == undefined) ||
+                (left == undefined) ||
+                (right == undefined)
             ) {
                 return false;
             }
 
             // up
-            if ( ! this.isDead(this.point(x, y-1)) ) {
+            if (! this.isDead(this.point(x, y - 1))) {
                 return false;
-            };
+            }
 
             // down
-            if ( ! this.isDead(this.point(x, y+1)) ) {
+            if (! this.isDead(this.point(x, y + 1))) {
                 return false;
-            };
+            }
 
             // left
-            if ( ! this.isDead(this.point(x-1, y)) ) {
+            if (! this.isDead(this.point(x - 1, y))) {
                 return false;
-            };
+            }
 
             // right
-            if ( ! this.isDead(this.point(x+1, y)) ) {
+            if (! this.isDead(this.point(x + 1, y))) {
                 return false;
-            };
+            }
 
             return true;
         };
 
         this.render = function() {
             this.viewOptions.board = this;
-            var view = new this.viewClass(this.viewOptions)
+            var view = new this.viewClass(this.viewOptions);
             view.render();
         }
 
@@ -119,15 +119,15 @@ var Goban = (function() {
 
         this.render = function() {
             this.drawBoard();
-            for (var i=0; i<this.board.size; i++) {
-                for (var j=0; j<this.board.size; j++) {
+            for (var i = 0; i < this.board.size; i++) {
+                for (var j = 0; j < this.board.size; j++) {
                     this.drawStone(i, j);
                 }
             }
         };
 
         this.drawStone = function(x, y) {
-            var value = this.board.data[y*this.board.size+x];
+            var value = this.board.data[y * this.board.size + x];
             switch (value) {
                 case undefined:
                     break;
@@ -140,7 +140,7 @@ var Goban = (function() {
                     this.canvas.strokeStyle = 'rgb(0, 0, 0)';
                     break;
             }
-            if ( value != undefined ) {
+            if (value != undefined) {
                 var unit_radius = this.dom.width / this.board.size / 2 * 0.8;
                 this.point(x, y, unit_radius);
             }
@@ -156,7 +156,7 @@ var Goban = (function() {
             var unit_width = this.dom.width / this.board.size;
 
             // vertical line
-            for (var i = 0; i < this.board.size; i++ ) {
+            for (var i = 0; i < this.board.size; i++) {
                 this.canvas.beginPath();
                 var start_coordinate = this.getCoordinate(i, 0);
                 this.canvas.moveTo(start_coordinate[0], start_coordinate[1]);
@@ -167,7 +167,7 @@ var Goban = (function() {
             }
 
             // horizontal line
-            for (var j = 0; j < this.board.size; j++ ) {
+            for (var j = 0; j < this.board.size; j++) {
                 this.canvas.beginPath();
                 var start_coordinate = this.getCoordinate(0, j);
                 this.canvas.moveTo(start_coordinate[0], start_coordinate[1]);
@@ -181,29 +181,29 @@ var Goban = (function() {
             switch (this.board.size) {
                 case 9:
                     this.point(2, 2, radius);
-                    this.point(2, 5-1, radius);
-                    this.point(2, 9-1-2, radius);
-                    this.point(5-1, 9-1-2, radius);
-                    this.point(9-1-2, 9-1-2, radius);
-                    this.point(9-1-2, 5-1, radius);
-                    this.point(9-1-2, 2, radius);
-                    this.point(5-1, 2,radius);
+                    this.point(2, 5 - 1, radius);
+                    this.point(2, 9 - 1 - 2, radius);
+                    this.point(5 - 1, 9 - 1 - 2, radius);
+                    this.point(9 - 1 - 2, 9 - 1 - 2, radius);
+                    this.point(9 - 1 - 2, 5 - 1, radius);
+                    this.point(9 - 1 - 2, 2, radius);
+                    this.point(5 - 1, 2, radius);
 
-                    this.point(5-1, 5-1,radius);
+                    this.point(5 - 1, 5 - 1, radius);
                     break;
                 case 13:
                     // TODO
                     break;
                 case 19:
                     this.point(3, 3, radius);
-                    this.point(3, 10-1, radius);
-                    this.point(3, 19-1-3, radius);
-                    this.point(10-1, 19-1-3, radius);
-                    this.point(19-1-3, 19-1-3, radius);
-                    this.point(19-1-3, 10-1, radius);
-                    this.point(19-1-3, 3, radius);
-                    this.point(10-1, 3, radius);
-                    this.point(10-1, 10-1, radius);
+                    this.point(3, 10 - 1, radius);
+                    this.point(3, 19 - 1 - 3, radius);
+                    this.point(10 - 1, 19 - 1 - 3, radius);
+                    this.point(19 - 1 - 3, 19 - 1 - 3, radius);
+                    this.point(19 - 1 - 3, 10 - 1, radius);
+                    this.point(19 - 1 - 3, 3, radius);
+                    this.point(10 - 1, 3, radius);
+                    this.point(10 - 1, 10 - 1, radius);
                     break;
                 default:
                     break;
