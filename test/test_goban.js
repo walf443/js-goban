@@ -22,10 +22,6 @@ QUnit.test("初期化のテスト", function() {
     QUnit.equal(board.turn, Goban.BLACK, '黒が先番');
 });
 
-QUnit.test('hoge', function() {
-    QUnit.ok(1);
-});
-
 QUnit.test("隅のアタリ判定", function() {
     var board = new Goban.Board({ 'size': 9 });
     board.move(0, 0);
