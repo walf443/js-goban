@@ -65,7 +65,7 @@ QUnit.test("四方を囲まれて一子とられた場合", function() {
     QUnit.equal(board.isDead(3, 3, Goban.BLACK), true, "黒石は取られること");
 });
 
-QUnit.test("上辺", function() {
+QUnit.test("左辺", function() {
     var board = new Goban.Board({ 'size': 9 });
     board.point(0, 3, Goban.BLACK);
     QUnit.equal(board.isDead(0, 3, Goban.BLACK), false, "まだ黒石は死んでないよ");
@@ -77,6 +77,42 @@ QUnit.test("上辺", function() {
     QUnit.equal(board.isDead(0, 3, Goban.BLACK), true, "黒石は取られること");
 });
 
+QUnit.test("右辺", function() {
+    var board = new Goban.Board({ 'size': 9 });
+    board.point(8, 3, Goban.BLACK);
+    QUnit.equal(board.isDead(8, 3, Goban.BLACK), false, "まだ黒石は死んでないよ");
+    board.point(8, 2, Goban.WHITE);
+    QUnit.equal(board.isDead(8, 3, Goban.BLACK), false, "まだ黒石は死んでないよ");
+    board.point(7, 3, Goban.WHITE);
+    QUnit.equal(board.isDead(8, 3, Goban.BLACK), false, "まだ黒石は死んでないよ");
+    board.point(8, 4, Goban.WHITE);
+    QUnit.equal(board.isDead(8, 3, Goban.BLACK), true, "黒石は取られること");
+});
+
+QUnit.test("上辺", function() {
+    var board = new Goban.Board({ 'size': 9 });
+    board.point(3, 0, Goban.BLACK);
+    QUnit.equal(board.isDead(3, 0, Goban.BLACK), false, "まだ黒石は死んでないよ");
+    board.point(2, 0, Goban.WHITE);
+    QUnit.equal(board.isDead(3, 0, Goban.BLACK), false, "まだ黒石は死んでないよ");
+    board.point(4, 0, Goban.WHITE);
+    QUnit.equal(board.isDead(3, 0, Goban.BLACK), false, "まだ黒石は死んでないよ");
+    board.point(3, 1, Goban.WHITE);
+    QUnit.equal(board.isDead(3, 0, Goban.BLACK), true, "黒石は取られること");
+});
+
+QUnit.test("下辺", function() {
+    var board = new Goban.Board({ 'size': 9 });
+    board.point(3, 8, Goban.BLACK);
+    QUnit.equal(board.isDead(3, 0, Goban.BLACK), false, "まだ黒石は死んでないよ");
+    board.point(2, 8, Goban.WHITE);
+    QUnit.equal(board.isDead(3, 0, Goban.BLACK), false, "まだ黒石は死んでないよ");
+    board.point(4, 8, Goban.WHITE);
+    QUnit.equal(board.isDead(3, 0, Goban.BLACK), false, "まだ黒石は死んでないよ");
+    board.point(3, 7, Goban.WHITE);
+    QUnit.equal(board.isDead(3, 8, Goban.BLACK), true, "黒石は取られること");
+});
+
 QUnit.test("左上隅", function() {
     var board = new Goban.Board({ 'size': 9 });
     board.point(0, 0, Goban.BLACK);
@@ -85,6 +121,36 @@ QUnit.test("左上隅", function() {
     QUnit.equal(board.isDead(0, 0, Goban.BLACK), false, "まだ黒石は死んでないよ");
     board.point(0, 1, Goban.WHITE);
     QUnit.equal(board.isDead(0, 0, Goban.BLACK), true, "黒石は取られること");
+});
+
+QUnit.test("左下隅", function() {
+    var board = new Goban.Board({ 'size': 9 });
+    board.point(0, 8, Goban.BLACK);
+    QUnit.equal(board.isDead(0, 8, Goban.BLACK), false, "まだ黒石は死んでないよ");
+    board.point(1, 8, Goban.WHITE);
+    QUnit.equal(board.isDead(0, 8, Goban.BLACK), false, "まだ黒石は死んでないよ");
+    board.point(0, 7, Goban.WHITE);
+    QUnit.equal(board.isDead(0, 8, Goban.BLACK), true, "黒石は取られること");
+});
+
+QUnit.test("右上隅", function() {
+    var board = new Goban.Board({ 'size': 9 });
+    board.point(8, 0, Goban.BLACK);
+    QUnit.equal(board.isDead(8, 0, Goban.BLACK), false, "まだ黒石は死んでないよ");
+    board.point(7, 0, Goban.WHITE);
+    QUnit.equal(board.isDead(8, 0, Goban.BLACK), false, "まだ黒石は死んでないよ");
+    board.point(8, 1, Goban.WHITE);
+    QUnit.equal(board.isDead(8, 0, Goban.BLACK), true, "黒石は取られること");
+});
+
+QUnit.test("右下隅", function() {
+    var board = new Goban.Board({ 'size': 9 });
+    board.point(8, 8, Goban.BLACK);
+    QUnit.equal(board.isDead(8, 8, Goban.BLACK), false, "まだ黒石は死んでないよ");
+    board.point(7, 8, Goban.WHITE);
+    QUnit.equal(board.isDead(8, 8, Goban.BLACK), false, "まだ黒石は死んでないよ");
+    board.point(8, 7, Goban.WHITE);
+    QUnit.equal(board.isDead(8, 8, Goban.BLACK), true, "黒石は取られること");
 });
 
 QUnit.start();
