@@ -5,6 +5,10 @@
 	<meta charset="utf-8" />
 	<link rel="stylesheet" href="./deps/qunit/qunit/qunit.css" type="text/css" media="screen" />
 	<script type="text/javascript" src="./deps/qunit/qunit/qunit.js"></script>
+	<script type="text/javascript" src="./node_modules/qunit-tap/lib/qunit-tap.js"></script>
+	<script>
+		qunitTap(QUnit, function() { console.log.apply(console, arguments); }, {noPlan: true});
+	</script>
 	<script type="text/javascript" src="./goban.js"></script>
 	<script type="text/javascript" src="./test/test_goban.js"></script>
 	<script type="text/javascript" src="./test/test_canvas_view.js"></script>
@@ -16,6 +20,7 @@
 	<h2 id="qunit-userAgent"></h2>
 	<ol id="qunit-tests"></ol>
 	<div id="qunit-fixture"></div>
+	<div id="qunit-testresult"></div>
 </body>
 </html>
 
