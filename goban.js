@@ -11,6 +11,34 @@ var Goban = (function() {
     this.WHITE = 1;
     var goban = this;
 
+    this.CLIView = function(options) {
+        this.board = options.board;
+
+        this.render = function() {
+            for ( var i = 0; i < this.board.size; i++ ) {
+                var line = "|";
+                for ( var j = 0; j < this.board.size; j++ ) {
+                    var val = this.board.data[i*this.board.size + j];
+                    var char;
+                    switch ( val ) {
+                        case goban.BLACK:
+                            char = "×";
+                            break;
+                        case goban.WHITE:
+                            char = "○";
+                            break;
+                        case undefined:
+                            char = " ";
+                            break;
+                    }
+                    line += char;
+                }
+                console.log(line + '|');
+            };
+        };
+        return this;
+    };
+
     this.Board = function(options)
     {
         this.size = options.size;
@@ -30,8 +58,8 @@ var Goban = (function() {
 
         this.turn = goban.BLACK;
 
-        this.viewClass = options.viewClass;
-        this.viewOptions = options.viewOptions;
+        this.viewClass = options.viewClass ? options.viewClass : CLIView;
+        this.viewOptions = options.viewOptions ? options.viewOptions : {};
 
         this.changeTurn = function() {
             if (this.turn == goban.BLACK) {
