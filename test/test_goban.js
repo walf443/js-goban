@@ -6,6 +6,7 @@ try {
 } catch (e) {
     // ignore
 }
+"use strict";
 
 QUnit.module("Boardに関するテスト", {});
 
