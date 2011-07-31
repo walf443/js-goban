@@ -90,7 +90,7 @@ var Goban = (function() {
             return !this.isAlive(x, y, color);
         };
 
-        this.DEBUG_IS_ALIVE = true;
+        this.DEBUG_IS_ALIVE = false;
         this.debugIsAlive = function(msg) {
             if ( this.DEBUG_IS_ALIVE ) {
                 console.log(msg);
