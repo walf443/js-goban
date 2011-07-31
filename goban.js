@@ -59,61 +59,61 @@ var Goban = (function() {
         };
 
         this.isDead = function(x, y, color) {
-            console.log("############ called isDaed x: " + x + ", y: " + y);
-            var val = this.point(x, y);
-            if ( val != color ) {
-                return true;
-            }
+            return !this.isAlive(x, y, color);
+        };
+
+        this.isAlive = function(x, y, color) {
+            console.log("############ called isAlive x: " + x + ", y: " + y);
             var up = this.point(x, y - 1);
             if ( y - 1 >= 0 && up === undefined ) {
-                console.log("############ up is blank by isDaed x: " + x + ", y: " + y);
+                console.log("############ up is blank by isAlive x: " + x + ", y: " + y);
                 return true;
             }
 
             var down = this.point(x, y + 1);
             if ( y + 1 < this.size && down == undefined ) {
-                console.log("############ down is blank by isDaed x: " + x + ", y: " + y);
+                console.log("############ down is blank by isAlive x: " + x + ", y: " + y);
                 return true;
             }
             var left = this.point(x - 1, y);
             if ( x - 1 >= 0 && left == undefined ) {
-                console.log("############ left is blank by isDaed x: " + x + ", y: " + y);
+                console.log("############ left is blank by isAlive x: " + x + ", y: " + y);
                 return true;
             }
             var right = this.point(x + 1, y);
             if ( x + 1 < this.size && right == undefined ) {
-                console.log("############ right is blank by isDaed x: " + x + ", y: " + y);
+                console.log("############ right is blank by isAlive x: " + x + ", y: " + y);
                 return true;
             }
 
             // up
             if ( y - 1 >= 0 ) {
-                if ( ! this.isDead(x, y - 1, color) ) {
-                    console.log("############ finish called isDaed x: " + x + ", y: " + y);
-                    return false;
+                if ( this.isAlive(x, y - 1, color) ) {
+                    console.log("############ finish called isAlive x: " + x + ", y: " + y);
+                    return true;
                 }
             }
 
             // down
-            if (y + 1 < this.size && ! this.isDead(x, y + 1, color)) {
-                console.log("############ finish called isDaed x: " + x + ", y: " + y);
-                return false;
+            if (y + 1 < this.size && this.isAlive(x, y + 1, color)) {
+                console.log("############ finish called isAlive x: " + x + ", y: " + y);
+                return true;
             }
 
             // left
-            if (x - 1 >= 0 && ! this.isDead(x - 1, y, color)) {
-                console.log("############ finish called isDaed x: " + x + ", y: " + y);
-                return false;
+            if (x - 1 >= 0 && this.isAlive(x - 1, y, color)) {
+                console.log("############ finish called isAlive x: " + x + ", y: " + y);
+                return true;
             }
 
             // right
-            if (x + 1 < this.size && ! this.isDead(x + 1, y, color)) {
-                console.log("############ finish called isDaed x: " + x + ", y: " + y);
-                return false;
+            if (x + 1 < this.size && this.isAlive(x + 1, y, color)) {
+                console.log("############ finish called isAlive x: " + x + ", y: " + y);
+                return true;
             }
 
-            console.log("############ finish called isDaed x: " + x + ", y: " + y);
-            return true;
+            console.log("############ finish called isAlive( x: " + x + ", y: " + y);
+            return false;
         };
 
         this.render = function() {
