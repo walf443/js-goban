@@ -11,7 +11,7 @@ try {
 QUnit.module("Boardに関するテスト", {});
 
 QUnit.test("初期化のテスト", function() {
-    var board =  Goban.Board({
+    var board =  new Goban.Board({
         'size': 9,
     });
     QUnit.equal(board.data.length, 9*9, 'board size initialized');
