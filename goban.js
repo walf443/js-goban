@@ -115,7 +115,7 @@ var Goban = (function() {
             }
 
             // up
-            if ( y - 1 >= 0 ) {
+            if ( y - 1 >= 0 && up == color ) {
                 if ( this.isAlive(x, y - 1, color) ) {
                     console.log("############ finish called isAlive x: " + x + ", y: " + y);
                     return true;
@@ -123,19 +123,19 @@ var Goban = (function() {
             }
 
             // down
-            if (y + 1 < this.size && this.isAlive(x, y + 1, color)) {
+            if (y + 1 < this.size && down == color && this.isAlive(x, y + 1, color)) {
                 console.log("############ finish called isAlive x: " + x + ", y: " + y);
                 return true;
             }
 
             // left
-            if (x - 1 >= 0 && this.isAlive(x - 1, y, color)) {
+            if (x - 1 >= 0 && left == color && this.isAlive(x - 1, y, color)) {
                 console.log("############ finish called isAlive x: " + x + ", y: " + y);
                 return true;
             }
 
             // right
-            if (x + 1 < this.size && this.isAlive(x + 1, y, color)) {
+            if (x + 1 < this.size && right == color && this.isAlive(x + 1, y, color)) {
                 console.log("############ finish called isAlive x: " + x + ", y: " + y);
                 return true;
             }
