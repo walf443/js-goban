@@ -90,57 +90,64 @@ var Goban = (function() {
             return !this.isAlive(x, y, color);
         };
 
+        this.DEBUG_IS_ALIVE = true;
+        this.debugIsAlive = function(msg) {
+            if ( this.DEBUG_IS_ALIVE ) {
+                console.log(msg);
+            }
+        };
+
         this.isAlive = function(x, y, color) {
-            console.log("############ called isAlive x: " + x + ", y: " + y);
+            this.debugIsAlive("############ called isAlive x: " + x + ", y: " + y);
             var up = this.point(x, y - 1);
             if ( y - 1 >= 0 && up === undefined ) {
-                console.log("############ up is blank by isAlive x: " + x + ", y: " + y);
+                this.debugIsAlive("############ up is blank by isAlive x: " + x + ", y: " + y);
                 return true;
             }
 
             var down = this.point(x, y + 1);
             if ( y + 1 < this.size && down == undefined ) {
-                console.log("############ down is blank by isAlive x: " + x + ", y: " + y);
+                this.debugIsAlive("############ down is blank by isAlive x: " + x + ", y: " + y);
                 return true;
             }
             var left = this.point(x - 1, y);
             if ( x - 1 >= 0 && left == undefined ) {
-                console.log("############ left is blank by isAlive x: " + x + ", y: " + y);
+                this.debugIsAlive("############ left is blank by isAlive x: " + x + ", y: " + y);
                 return true;
             }
             var right = this.point(x + 1, y);
             if ( x + 1 < this.size && right == undefined ) {
-                console.log("############ right is blank by isAlive x: " + x + ", y: " + y);
+                this.debugIsAlive("############ right is blank by isAlive x: " + x + ", y: " + y);
                 return true;
             }
 
             // up
             if ( y - 1 >= 0 && up == color ) {
                 if ( this.isAlive(x, y - 1, color) ) {
-                    console.log("############ finish called isAlive x: " + x + ", y: " + y);
+                    this.debugIsAlive("############ finish called isAlive x: " + x + ", y: " + y);
                     return true;
                 }
             }
 
             // down
             if (y + 1 < this.size && down == color && this.isAlive(x, y + 1, color)) {
-                console.log("############ finish called isAlive x: " + x + ", y: " + y);
+                debugIsAlive("############ finish called isAlive x: " + x + ", y: " + y);
                 return true;
             }
 
             // left
             if (x - 1 >= 0 && left == color && this.isAlive(x - 1, y, color)) {
-                console.log("############ finish called isAlive x: " + x + ", y: " + y);
+                this.debugIsAlive("############ finish called isAlive x: " + x + ", y: " + y);
                 return true;
             }
 
             // right
             if (x + 1 < this.size && right == color && this.isAlive(x + 1, y, color)) {
-                console.log("############ finish called isAlive x: " + x + ", y: " + y);
+                this.debugIsAlive("############ finish called isAlive x: " + x + ", y: " + y);
                 return true;
             }
 
-            console.log("############ finish called isAlive( x: " + x + ", y: " + y);
+            this.debugIsAlive("############ finish called isAlive( x: " + x + ", y: " + y);
             return false;
         };
 
