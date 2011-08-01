@@ -266,6 +266,7 @@ var Goban = (function() {
             var coordinates = this.getCoordinate(x, y);
             this.canvas.beginPath();
             this.canvas.arc(coordinates[0], coordinates[1], r, 0, Math.PI * 2, false);
+            this.canvas.closePath();
             this.canvas.fill();
         };
 
