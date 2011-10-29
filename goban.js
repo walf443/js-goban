@@ -1,17 +1,17 @@
 var Goban = (function() {
     'use strict';
 
+    var goban = {};
     // for node test
     try {
         module.exports = this;
     } catch (e) {
     }
 
-    this.BLACK = 0;
-    this.WHITE = 1;
-    var goban = this;
+    goban.BLACK = 0;
+    goban.WHITE = 1;
 
-    this.CLIView = function(options) {
+    goban.CLIView = function(options) {
         this.board = options.board;
 
         this.render = function() {
@@ -39,7 +39,7 @@ var Goban = (function() {
         return this;
     };
 
-    this.Board = function(options)
+    goban.Board = function(options)
     {
         this.size = options.size;
 
@@ -58,7 +58,7 @@ var Goban = (function() {
 
         this.turn = goban.BLACK;
 
-        this.viewClass = options.viewClass ? options.viewClass : CLIView;
+        this.viewClass = options.viewClass ? options.viewClass : goban.CLIView;
         this.viewOptions = options.viewOptions ? options.viewOptions : {};
 
         this.changeTurn = function() {
@@ -160,7 +160,7 @@ var Goban = (function() {
         return this;
     };
 
-    this.CanvasView = function(options) {
+    goban.CanvasView = function(options) {
 
         this.backgroundColor = options.backgroundColor ? options.backgroundColor : 'rgb(172, 130, 70)';
 
@@ -285,6 +285,6 @@ var Goban = (function() {
         return this;
     };
 
-    return this;
+    return goban;
 })();
 
