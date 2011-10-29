@@ -87,7 +87,8 @@ var Goban = (function() {
         };
 
         this.isDead = function(x, y, color) {
-            return !this.isAlive(x, y, color);
+            var isChecked = [];
+            return !this.isAlive(x, y, color, isChecked);
         };
 
         this.DEBUG_IS_ALIVE = false;
@@ -97,7 +98,13 @@ var Goban = (function() {
             }
         };
 
-        this.isAlive = function(x, y, color) {
+        this.isAlive = function(x, y, color, isChecked) {
+            var index = x * this.size + y;
+            if ( isChecked[index] ) {
+                return false;
+            }
+            isChecked[index] = true;
+
             this.debugIsAlive("############ called isAlive x: " + x + ", y: " + y);
             var up = this.point(x, y - 1);
             if ( y - 1 >= 0 && up === undefined ) {
@@ -123,26 +130,26 @@ var Goban = (function() {
 
             // up
             if ( y - 1 >= 0 && up == color ) {
-                if ( this.isAlive(x, y - 1, color) ) {
+                if ( this.isAlive(x, y - 1, color, isChecked) ) {
                     this.debugIsAlive("############ finish called isAlive x: " + x + ", y: " + y);
                     return true;
                 }
             }
 
             // down
-            if (y + 1 < this.size && down == color && this.isAlive(x, y + 1, color)) {
+            if (y + 1 < this.size && down == color && this.isAlive(x, y + 1, color, isChecked)) {
                 this.debugIsAlive("############ finish called isAlive x: " + x + ", y: " + y);
                 return true;
             }
 
             // left
-            if (x - 1 >= 0 && left == color && this.isAlive(x - 1, y, color)) {
+            if (x - 1 >= 0 && left == color && this.isAlive(x - 1, y, color, isChecked)) {
                 this.debugIsAlive("############ finish called isAlive x: " + x + ", y: " + y);
                 return true;
             }
 
             // right
-            if (x + 1 < this.size && right == color && this.isAlive(x + 1, y, color)) {
+            if (x + 1 < this.size && right == color && this.isAlive(x + 1, y, color, isChecked)) {
                 this.debugIsAlive("############ finish called isAlive x: " + x + ", y: " + y);
                 return true;
             }
