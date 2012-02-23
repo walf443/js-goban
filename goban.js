@@ -74,6 +74,7 @@ var Goban = (function() {
                 this.point(x, y, this.turn);
                 this.evaluate(x, y);
                 this.changeTurn();
+                this.lastMove= { x:x, y:y };
             } else {
                 throw "Can't move to this position";
             }
@@ -183,6 +184,9 @@ var Goban = (function() {
                     this.drawStone(i, j);
                 }
             }
+            if (undefined != this.board.lastMove ) {
+                this.drawCircle(this.board.lastMove.x,this.board.lastMove.y);
+            }
         };
 
         this.drawStone = function(x, y) {
@@ -204,6 +208,27 @@ var Goban = (function() {
                 this.point(x, y, unit_radius);
             }
 
+        }
+
+        this.drawCircle = function(x, y) {
+            var value = this.board.data[y * this.board.size + x];
+            switch (value) {
+                case undefined:
+                    this.canvas.fillStyle = 'rgb(0, 0, 0, 0)';
+                    this.canvas.strokeStyle = 'rgb(0, 0, 0)';
+                    break;
+                case goban.BLACK:
+                    this.canvas.fillStyle = 'rgb(0, 0, 0,0)';
+                    this.canvas.strokeStyle = 'rgb(255, 255, 255)';
+                    break;
+                case goban.WHITE:
+                    this.canvas.fillStyle = 'rgb(0, 0, 0,0)';
+                    this.canvas.strokeStyle = 'rgb(0, 0, 0)';
+                    break;
+            }
+            var unit_radius = this.dom.width / this.board.size / 4 * 0.8;
+            this.point(x, y, unit_radius,true);
+            
         }
 
         this.drawBoard = function() {
@@ -269,12 +294,20 @@ var Goban = (function() {
             }
         };
 
-        this.point = function(x, y, r) {
+        this.point = function(x, y, r, width) {
             var coordinates = this.getCoordinate(x, y);
+            
             this.canvas.beginPath();
             this.canvas.arc(coordinates[0], coordinates[1], r, 0, Math.PI * 2, false);
             this.canvas.closePath();
-            this.canvas.fill();
+            
+
+            if(width!=undefined) {
+                this.canvas.stroke();            
+            } else {
+                this.canvas.fill();
+            }
+            
         };
 
         // return real coordinates from virtual coodinate.
