@@ -1,3 +1,11 @@
+
+
+class Goban {
+    static const NULL: int = 0;
+    static const BLACK: int = 1;
+    static const WHITE: int = 2;
+}
+
 class Board {
     var size: int;
     var data : Array.<int>;
@@ -45,13 +53,13 @@ class CLIView extends View {
                 var val = this.board.data[i*this.board.size + j] as int;
                 var char : string;
                 switch ( val ) {
-                    case 0:
+                    case Goban.NULL:
                         char = " ";
                         break;
-                    case 1:
+                    case Goban.BLACK:
                         char = "x";
                         break;
-                    case 2:
+                    case Goban.WHITE:
                         char = "○";
                         break;
                     default:
