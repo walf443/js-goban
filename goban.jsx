@@ -1,4 +1,7 @@
 class Board {
+    var size: int;
+    var data: Array.<int>;
+
     function render(): void {
     }
 
@@ -22,6 +25,32 @@ class CLIView extends View {
     function constructor(board: Board) {
     }
     override function render(): void {
+        for (var i = 0; i < this.board.size; i++ ) {
+            var line = "|";
+            for (var j = 0; j < this.board.size; j++ ) {
+                var val = this.board.data[i*this.board.size + j] as int;
+                var char : string;
+                switch ( val ) {
+                    case 0:
+                        char = "x";
+                        break;
+                    case 1:
+                        char = "○";
+                        break;
+                    case 2:
+                        char = " ";
+                        break;
+                    default:
+                        // must not through
+                        char = "";
+                        break;
+                }
+
+                line += char;
+            }
+
+            log(line + "|");
+        }
     }
 }
 
