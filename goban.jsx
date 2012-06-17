@@ -127,6 +127,23 @@ class CanvasView extends View {
     }
 
     function drawStone(x:int, y:int): void {
+        var value = this.board.data[y * this.board.size + x];
+        switch (value) {
+            case Goban.NULL:
+                break;
+            case Goban.BLACK:
+                this.canvas.fillStyle = 'rgb(0, 0, 0)';
+                this.canvas.strokeStyle = 'rgb(0, 0, 0)';
+                break;
+            case Goban.WHITE:
+                this.canvas.fillStyle = 'rgb(255, 255, 255)';
+                this.canvas.strokeStyle = 'rgb(0, 0, 0)';
+                break;
+        }
+        if (value != Goban.NULL ) {
+            var unit_radius = this.dom.width / this.board.size / 2 * 0.8;
+            this.point(x, y, unit_radius, 1);
+        }
     }
 
     function drawCircle(x:int, y:int): void {
