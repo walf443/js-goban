@@ -7,35 +7,44 @@ class Board {
 }
 
 abstract class View {
-    static abstract function render(): void {
+    var board: Board;
+    function constructor() {
+    }
+
+    function constructor(board: Board) {
+        this.board = board;
+    }
+    abstract function render(): void {
     }
 }
 
 class CLIView extends View {
-    static function render(): void {
+    function constructor(board: Board) {
+    }
+    override function render(): void {
     }
 }
 
 class CanvasView extends View {
-    static function render(): void {
+    override function render(): void {
     }
 
-    static function drawStone(x:int, y:int): void {
+    function drawStone(x:int, y:int): void {
     }
 
-    static function drawCircle(x:int, y:int): void {
+    function drawCircle(x:int, y:int): void {
     }
 
-    static function drawBoard(): void {
+    function drawBoard(): void {
     }
 
-    static function point(x:int, y:int, r:number, width:int): void {
+    function point(x:int, y:int, r:number, width:int): void {
     }
 
-    static function drawBackground(): void {
+    function drawBackground(): void {
     }
 
-    static function getCoordinate(x:int, y:int): number[] {
+    function getCoordinate(x:int, y:int): number[] {
         return [1];
     }
 }
