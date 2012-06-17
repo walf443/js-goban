@@ -9,8 +9,10 @@ class Goban {
 class Board {
     var size: int;
     var data : Array.<int>;
+    var turn : int;
 
     function constructor() {
+        this.turn = Goban.BLACK;
     }
 
     function constructor(size:int) {
@@ -27,6 +29,29 @@ class Board {
     }
 
     function move(x:int, y:int): void {
+        if ( this.point(x, y) == Goban.NULL ) {
+            log [x, y, this.turn];
+            this.point(x, y, this.turn);
+            this.changeTurn();
+        } else {
+            throw "Can't move to this position!!";
+        }
+    }
+
+    function changeTurn(): void {
+        if ( this.turn == Goban.BLACK ) {
+            this.turn = Goban.WHITE;
+        } else {
+            this.turn = Goban.BLACK;
+        }
+    }
+
+    function point(x: int, y: int): int {
+        return this.data[y * this.size + x];
+    }
+
+    function point(x: int, y: int, value: int): int {
+        return this.data[y * this.size + x] = value;
     }
 }
 
