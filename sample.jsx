@@ -3,7 +3,7 @@ import 'timer.jsx';
 
 class _Main {
     static function main(): void {
-        var board = new goban.Board();
+        var board = new goban.Board(19);
         var moves: Array.<Array.<number>> = [
             [3, 3],
             [2, 5],

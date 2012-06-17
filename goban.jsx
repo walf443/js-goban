@@ -1,8 +1,21 @@
 class Board {
     var size: int;
-    var data: Array.<int>;
+    var data : Array.<int>;
+
+    function constructor() {
+    }
+
+    function constructor(size:int) {
+        this.size = size;
+        this.data = new Array.<int>;
+        for (var i = 0; i < this.size * this.size; i++ ) {
+            this.data[i] = 0;
+        }
+    }
 
     function render(): void {
+        var view = new CLIView(this);
+        view.render();
     }
 
     function move(x:int, y:int): void {
@@ -23,6 +36,7 @@ abstract class View {
 
 class CLIView extends View {
     function constructor(board: Board) {
+        this.board = board;
     }
     override function render(): void {
         for (var i = 0; i < this.board.size; i++ ) {
@@ -32,13 +46,13 @@ class CLIView extends View {
                 var char : string;
                 switch ( val ) {
                     case 0:
-                        char = "x";
+                        char = " ";
                         break;
                     case 1:
-                        char = "○";
+                        char = "x";
                         break;
                     case 2:
-                        char = " ";
+                        char = "○";
                         break;
                     default:
                         // must not through
