@@ -1,4 +1,9 @@
 class Board {
+    function render(): void {
+    }
+
+    function move(x:int, y:int): void {
+    }
 }
 
 abstract class View {
