@@ -142,11 +142,28 @@ class CanvasView extends View {
         }
         if (value != Goban.NULL ) {
             var unit_radius = this.dom.width / this.board.size / 2 * 0.8;
-            this.point(x, y, unit_radius, 1);
+            this.point(x, y, unit_radius, true);
         }
     }
 
     function drawCircle(x:int, y:int): void {
+        var value = this.board.data[y* this.board.size + x];
+        switch (value) {
+            case Goban.NULL:
+                this.canvas.fillStyle = 'rgb(0, 0, 0, 0)';
+                this.canvas.strokeStyle = 'rgb(0, 0, 0)';
+                break;
+            case Goban.BLACK:
+                this.canvas.fillStyle = 'rgb(0, 0, 0,0)';
+                this.canvas.strokeStyle = 'rgb(255, 255, 255)';
+                break;
+            case Goban.WHITE:
+                this.canvas.fillStyle = 'rgb(0, 0, 0,0)';
+                this.canvas.strokeStyle = 'rgb(0, 0, 0)';
+                break;
+        }
+        var unit_radius = this.dom.width / this.board.size / 4 * 0.8;
+        this.point(x, y, unit_radius, true);
     }
 
     function drawBoard(): void {
@@ -221,7 +238,7 @@ class CanvasView extends View {
         this.canvas.stroke();
     }
 
-    function point(x:int, y:int, r:number, width:int): void {
+    function point(x:int, y:int, r:number, is_fill:boolean): void {
         var coordinates =  this.getCoordinate(x, y);
         this.canvas.beginPath();
         this.canvas.arc(coordinates[0], coordinates[1], r, 0, Math.PI * 2, false);
